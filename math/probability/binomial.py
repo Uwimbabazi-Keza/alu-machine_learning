@@ -28,8 +28,7 @@ class Binomial:
                 raise ValueError("data must contain multiple values")
 
             m = float(sum(data) / len(data))
-            vari = float((sum(map(lambda n: pow(n - m,
-                        2), data)) / len(data)))
+            vari = float((sum(map(lambda n: pow(n - m, 2), data)) / len(data)))
             self.p = - (vari / m) + 1
             self.n = round(m / self.p)
             self.p = m / self.n
