@@ -27,4 +27,3 @@ class Normal:
             self.mean = float(sum(data) / len(data))
             self.stddev = (sum([(x - self.mean) ** 2 for x in data])
                            / len(data)) ** 0.5
-        
