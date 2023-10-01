@@ -53,10 +53,8 @@ class Normal:
         """
         calculates the value of the CDF for a given x-value
         """
-        p = 3.1415926536
-        e = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
-        erf = (2 / (p ** 0.5)) * (x - ((x ** 3) / 3) + ((x ** 5) / 10) - (
-              (x ** 7) / 42) + ((x ** 9) / 216))
-        print(erf)
-        cdf = 0.5 * (1 + erf * (2.7182818285 ** e))
-        return cdf
+        if not isinstance(x, int):
+            x = int(x)
+        if x < 0:
+            return 0
+        return sum([self.pmf(i) for i in range(0, x+1)])
