@@ -44,17 +44,18 @@ class Normal:
         """
         calculates the value of the PDF for a given x-value
         """
+        p = 3.1415926536
         y = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
-        pdf = ((1 / (self.stddev * (2 * 3.1415926536) ** 0.5)) 
-* 2.7182818285 ** (y))
+        pdf = ((1 / (self.stddev * (2 * p) ** 0.5)) * 2.7182818285 ** (y))
         return pdf
 
     def cdf(self, x):
         """
         calculates the value of the CDF for a given x-value
         """
+        p = 3.1415926536
         e = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
-        erf = (2 / (3.1415926536 ** 0.5)) * (x - ((x ** 3) / 3) + ((x ** 5) / 10) -
+        erf = (2 / (p ** 0.5)) * (x - ((x ** 3) / 3) + ((x ** 5) / 10) -
                                    ((x ** 7) / 42) + ((x ** 9) / 216))
         print(erf)
         cdf = 0.5 * (1 + erf * (2.7182818285 ** e))
