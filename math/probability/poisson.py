@@ -29,7 +29,6 @@ class Poisson:
         k = int(k) if not isinstance(k, int) else k
         if k < 0:
             return 0
-        
         """factorial"""
         f= 1
         for i in range(1, k + 1):
