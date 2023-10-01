@@ -41,7 +41,7 @@ class Binomial:
             k = int(k)
         if k < 0 or k > self.n:
             return 0
-        coeffic = 1  #binomial coefficient
+        coeffic = 1  # binomial coefficient
         for i in range(1, k + 1):
             coeffic *= (self.n - i + 1) // i
         value = coeffic * (self.p ** k) * ((1 - self.p) ** (self.n - k))
