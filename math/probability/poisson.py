@@ -30,7 +30,7 @@ class Poisson:
         if k < 0:
             return 0
         """factorial"""
-        f= 1
+        f = 1
         for i in range(1, k + 1):
             f *= i
         x = self.lambtha ** k * 2.7182818285 ** (-self.lambtha)
