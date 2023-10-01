@@ -41,10 +41,9 @@ class Binomial:
             k = int(k)
         if k < 0 or k > self.n:
             return 0
-        binomial_coefficient = 1
+        coeffic = 1 #binomial coefficient
         for i in range(1, k + 1):
-            binomial_coefficient *= (self.n - i + 1) // i
-        pmf_value = binomial_coefficient * (self.p ** k) * ((1 - self.p)
-                     ** (self.n - k))
+            coeffic *= (self.n - i + 1) // i
+        value = coeffic * (self.p ** k) * ((1 - self.p)** (self.n - k))
 
-        return pmf_value
+        return value
