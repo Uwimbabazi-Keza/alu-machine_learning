@@ -12,9 +12,10 @@ def definiteness(matrix):
     def definiteness(matrix)
     """
     if not isinstance(matrix, np.ndarray):
-        raise TypeError("Input must be a numpy.ndarray")
+        raise TypeError("matrix must be a numpy.ndarray")
 
-    if len(matrix.shape) != 2 or matrix.shape[0] != matrix.shape[1] or not np.array_equal(matrix, matrix.T):
+    if len(matrix.shape) != 2 or matrix.shape[0] != matrix.shape[1] \
+            or not np.array_equal(matrix, matrix.T):
         return None
 
     positive_count = 0
