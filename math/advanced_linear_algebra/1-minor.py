@@ -11,7 +11,8 @@ def minor(matrix):
     """
     def minor(matrix)
     """
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
+    if not isinstance(matrix, list) or \
+            not all(isinstance(row, list) for row in matrix):
         raise TypeError('matrix must be a list of lists')
 
     num_rows = len(matrix)
@@ -29,7 +30,8 @@ def minor(matrix):
         for i in range(num_rows):
             minor_row = []
             for j in range(num_rows):
-                minors = [row[:j] + row[j + 1:] for row in (matrix[:i] + matrix[i + 1:])]
+                minors = [row[:j] + row[j + 1:] for \
+                          row in (matrix[:i] + matrix[i + 1:])]
                 minor_row.append(determinant(minors))
             minor_matrix.append(minor_row)
 
