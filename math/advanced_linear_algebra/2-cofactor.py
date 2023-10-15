@@ -25,7 +25,7 @@ def cofactor(matrix):
         return [[1]]
     elif num_rows == 2:
         return [[matrix[1][1], -matrix[1][0]], [-matrix[0][1], matrix[0][0]]]
-  
+
     else:
         minor_matrix = minor(matrix)
         c_mat = []
@@ -33,7 +33,7 @@ def cofactor(matrix):
         for i in range(num_rows):
             c_row = []
             for j in range(num_rows):
-                
+
                 sign = (-1) ** (i + j)
                 c_element = sign * minor_matrix[i][j]
                 c_row.append(c_element)
