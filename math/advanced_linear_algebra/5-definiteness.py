@@ -11,30 +11,33 @@ def definiteness(matrix):
     """
     def definiteness(matrix)
     """
-
     if not isinstance(matrix, np.ndarray):
-        raise TypeError('matrix must be a numpy.ndarray')
+        raise TypeError("Input must be a numpy.ndarray")
 
-    if not matrix.size or matrix.shape[0] != matrix.shape[1]:
+    if len(matrix.shape) != 2 or matrix.shape[0] != matrix.shape[1] or not np.array_equal(matrix, matrix.T):
         return None
 
-    eigenvalues = np.linalg.eigvals(matrix)
-    n = len(eigenvalues)
+    positive_count = 0
+    negative_count = 0
+    zero_count = 0
 
-    positive = all(e > 0 for e in eigenvalues)
-    negative = all(e < 0 for e in eigenvalues)
-    zero = all(e == 0 for e in eigenvalues)
+    eigenvalues = np.linalg.eig(matrix)[0]
 
-    if n == 1:
-        return "Positive definite" if positive else "Positive semi-definite" \
-            if zero else "Negative definite"
+    for value in eigenvalues:
+        if value > 0:
+            positive_count += 1
+        if value < 0:
+            negative_count += 1
+        if value == 0:
+            zero_count += 1
 
-    if n == 2:
-        return "Positive definite" if positive else "Negative definite" \
-            if negative else "Indefinite" if not zero else None
+    if positive_count and zero_count and not negative_count:
+        return "Positive semi-definite"
+    elif negative_count and zero_count and not positive_count:
+        return "Negative semi-definite"
+    elif positive_count and not negative_count:
+        return "Positive definite"
+    elif negative_count and not positive_count:
+        return "Negative definite"
 
-    if n == 3:
-        return "Positive definite" if positive else "Negative definite" \
-            if negative else "Indefinite" if not zero else None
-
-    return None
+    return "Indefinite"
