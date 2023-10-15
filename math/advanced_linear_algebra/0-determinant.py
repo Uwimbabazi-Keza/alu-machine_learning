@@ -10,11 +10,11 @@ def determinant(matrix):
     """
 
     if not isinstance(matrix, list) or not \
-        all(isinstance(row, list) for row in matrix):
+            all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
 
     num_rows = len(matrix)
-    if num_rows == 0:
+    if num_rows is 0:
         raise TypeError("matrix must be a list of lists")
     for row in matrix:
         if len(row) != num_rows:
