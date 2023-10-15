@@ -36,5 +36,5 @@ def inverse(matrix):
         adjugate_matrix = adjugate(matrix)
         determinant_value = determinant(matrix)
 
-        return [[entry / determinant_value for entry in row] 
+        return [[entry / determinant_value for entry in row]
                 for row in adjugate_matrix]
