@@ -14,12 +14,12 @@ def adjugate(matrix):
 
     if not isinstance(matrix, list) or not \
             all(isinstance(row, list) for row in matrix):
-        raise TypeError('Input must be a list of lists')
+        raise TypeError('matrix must be a list of lists')
 
     num_rows = len(matrix)
     for row in matrix:
         if len(row) != num_rows:
-            raise ValueError('Input must be a non-empty square matrix')
+            raise ValueError('matrix must be a non-empty square matrix')
 
     if num_rows == 1:
         return [[1]]
