@@ -29,6 +29,7 @@ def adjugate(matrix):
     else:
         cofactor_matrix = cofactor(matrix)
 
-        adjugate_matrix = [[cofactor_matrix[j][i] for j in range(num_rows)] for i in range(num_rows)]
+        adjugate_matrix = [[cofactor_matrix[j][i] for j in range(num_rows)]
+                           for i in range(num_rows)]
 
         return adjugate_matrix
