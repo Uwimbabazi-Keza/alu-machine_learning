@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
- class MultiNormal that represents a
- Multivariate Normal distribution"""
+class MultiNormal that represents a
+Multivariate Normal distribution
+"""
 
 import numpy as np
 
@@ -33,7 +34,7 @@ class MultiNormal:
             raise TypeError("x must be a numpy.ndarray")
         d, _ = self.cov.shape
         if x.shape != (d, 1):
-            raise ValueError(f"x must have the shape ({d}, 1)")
+            raise ValueError('x must have the shape ({}, 1)'.format(d))
 
         det = np.linalg.det(self.cov)
         inv = np.linalg.inv(self.cov)
