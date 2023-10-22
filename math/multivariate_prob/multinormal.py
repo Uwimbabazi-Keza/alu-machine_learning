@@ -14,11 +14,16 @@ class MultiNormal:
         """
         intialize
         """
-        if not isinstance(data, np.ndarray) or data.ndim != 2:
-            raise TypeError("x must be a numpy.ndarray")
+        if not isinstance(data, np.ndarray) or len(data.shape) != 2:
+            raise TypeError("data must be a 2D numpy.ndarray")
         d, n = data.shape
+        if n < 2:
+            raise ValueError("data must contain multiple data points")
+
         self.mean = np.mean(data, axis=1, keepdims=True)
-        self.cov = (data - self.mean) @ (data - self.mean).T / (n - 1)
+
+        centered_data = data - self.mean
+        self.cov = np.dot(centered_data, centered_data.T) / (n - 1)
 
     def pdf(self, x):
         """
@@ -29,7 +34,7 @@ class MultiNormal:
         d, _ = self.cov.shape
         if x.shape != (d, 1):
             raise ValueError(f"x must have the shape ({d}, 1)")
-        
+
         det = np.linalg.det(self.cov)
         inv = np.linalg.inv(self.cov)
         pdf = 1.0 / np.sqrt((2 * np.pi) ** d * det)
