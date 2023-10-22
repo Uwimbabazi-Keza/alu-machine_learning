@@ -7,6 +7,7 @@ mean and covariance of a data set
 
 import numpy as np
 
+
 def mean_cov(X):
     """
     def mean_cov(X)
