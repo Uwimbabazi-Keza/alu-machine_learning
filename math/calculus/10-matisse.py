@@ -18,10 +18,3 @@ def poly_derivative(poly):
         return [0]
 
     return derivative
-
-poly = [5, 3, 0, 1]
-derivative = poly_derivative(poly)
-if derivative is not None:
-    print("The derivative of the polynomial is:", derivative)
-else:
-    print("Invalid input. Please provide a list of coefficients.")
