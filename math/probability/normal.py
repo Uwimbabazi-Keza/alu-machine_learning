@@ -2,6 +2,7 @@
 """
 Create a class Normal that represents a normal distribution
 """
+from math import erf, sqrt, pi, exp
 
 
 class Normal:
@@ -53,8 +54,6 @@ class Normal:
         """
         calculates the value of the CDF for a given x-value
         """
-        if not isinstance(x, int):
-            x = int(x)
-        if x < 0:
-            return 0
-        return sum([self.pmf(i) for i in range(0, x+1)])
+        z = (x - self.mean) / (self.stddev * sqrt(2))
+        cdf = 0.5 * (1 + erf(z))
+        return cdf
