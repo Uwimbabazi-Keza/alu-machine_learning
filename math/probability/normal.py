@@ -62,6 +62,7 @@ class Normal:
         """
         Error function approximation using the Maclaurin series
         """
-        result = (2 / (3.1415926536 ** 0.5)) * (z - (z ** 3) /
-                  3 + (z ** 5) / 10 - (z ** 7) / 42 + (z ** 9) / 216)
+        result = (2 / (3.1415926536 ** 0.5)) * (z - (z ** 3)
+                  / 3 + (z ** 5) / 10 - (z ** 7) / 42 + (z ** 9)
+                  / 216)
         return result
