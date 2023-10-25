@@ -30,23 +30,24 @@ class Normal:
 
     def z_score(self, x):
         """
-        calculates z-score of a given x-value
+        z-score
         """
         return (x - self.mean) / self.stddev
 
     def x_value(self, z):
         """
-        calculates x-value of a given z-score
+        x-value
         """
         return z * self.stddev + self.mean
 
     def pdf(self, x):
         """
-        calculates the value of the PDF for a given x-value
+        PDF
         """
         p = 3.1415926536
-        y = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
-        pdf = ((1 / (self.stddev * (2 * p) ** 0.5)) * 2.7182818285 ** (y))
+        e = 2.7182818285
+        pdf = (e ** (-0.5 * ((x - self.mean) / self.stddev) ** 2)
+                / (self.stddev * ((2 * p) ** 0.5)))
         return pdf
 
     def cdf(self, x):
