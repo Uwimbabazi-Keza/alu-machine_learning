@@ -53,20 +53,14 @@ class Normal:
         """
         Calculates the value of the CDF for a given x-value
         """
-        z = (x - self.mean) / (self.stddev * (2 ** 0.5))
-        cdf = 0.5 * (1 + self._erf(z))
+        cdf = (0.5 * (1 + self.erf((x - self.mean) /
+                                   (self.stddev * 2 ** 0.5))))
         return cdf
 
     def _erf(self, z):
         """
         Error function approximation using the Maclaurin series
         """
-        result = z
-        z_squared = z * z
-        z_power = z
-        fact = 1.0
-        for n in range(1, 20):
-            fact *= n
-            z_power *= z_squared
-            result += (z_power / (2 * n + 1)) / fact
-        return 2 / (3.14159265359 ** 0.5) * result
+        result = (2 / (self.PI ** 0.5)) * (z - (z ** 3) / 3 + (z ** 5) / 10
+                                         - (z ** 7) / 42 + (z ** 9) / 216)
+        return result
