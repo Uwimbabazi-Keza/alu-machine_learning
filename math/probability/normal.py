@@ -54,7 +54,7 @@ class Normal:
         """
         Calculates the value of the CDF for a given x-value
         """
-        cdf = (0.5 * (1 + self.erf((x - self.mean) /
+        cdf = (0.5 * (1 + self._erf((x - self.mean) /
                                    (self.stddev * 2 ** 0.5))))
         return cdf
 
