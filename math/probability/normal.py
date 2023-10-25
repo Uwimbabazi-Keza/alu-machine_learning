@@ -54,6 +54,23 @@ class Normal:
         """
         calculates the value of the CDF for a given x-value
         """
-        z = (x - self.mean) / (self.stddev * sqrt(2))
-        cdf = 0.5 * (1 + erf(z))
-        return cdf
+        if not isinstance(x, int):
+            x = int(x)
+        if x < 0:
+            return 0
+        n = 1000
+        a = 0
+        b = x
+        h = (b - a) / n
+        cdf_sum = 0
+        for i in range(n + 1):
+            xi = a + i * h
+            pdf_value = self.pdf(xi)
+
+            if i == 0 or i == n:
+                cdf_sum += pdf_value / 2
+            else:
+                cdf_sum += pdf_value
+        cdf_value = cdf_sum * h
+
+        return cdf_value
