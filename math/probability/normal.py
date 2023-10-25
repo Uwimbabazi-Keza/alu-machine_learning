@@ -2,7 +2,6 @@
 """
 Create a class Normal that represents a normal distribution
 """
-from math import erf, sqrt, pi, exp
 
 
 class Normal:
