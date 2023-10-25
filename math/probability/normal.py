@@ -51,25 +51,25 @@ class Normal:
 
     def cdf(self, x):
         """
-        calculates the value of the CDF for a given x-value
+        Calculates the value of the CDF for a given x-value
         """
-        if not isinstance(x, int):
-            x = int(x)
-        if x < 0:
-            return 0
-        n = 1000
-        a = 0
-        b = x
-        h = (b - a) / n
-        cdf_sum = 0
-        for i in range(n + 1):
-            xi = a + i * h
-            pdf_value = self.pdf(xi)
+        if not isinstance(x, (int, float)):
+            raise ValueError("x must be a numeric value")
+        
+        z = (x - self.mean) / (self.stddev * (2 ** 0.5))
+        cdf = 0.5 * (1 + self._erf(z))
+        return cdf
 
-            if i == 0 or i == n:
-                cdf_sum += pdf_value / 2
-            else:
-                cdf_sum += pdf_value
-        cdf_value = cdf_sum * h
-
-        return cdf_value
+    def _erf(self, z):
+        """
+        Error function approximation using the Maclaurin series
+        """
+        result = z
+        z_squared = z * z
+        z_power = z
+        fact = 1.0
+        for n in range(1, 20):
+            fact *= n
+            z_power *= z_squared
+            result += (z_power / (2 * n + 1)) / fact
+        return 2 / (3.14159265359 ** 0.5) * result
