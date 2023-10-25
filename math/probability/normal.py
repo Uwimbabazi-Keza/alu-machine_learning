@@ -47,21 +47,21 @@ class Normal:
         p = 3.1415926536
         e = 2.7182818285
         pdf = (e ** (-0.5 * ((x - self.mean) / self.stddev) ** 2)
-                / (self.stddev * ((2 * p) ** 0.5)))
+               / (self.stddev * ((2 * p) ** 0.5)))
         return pdf
 
     def cdf(self, x):
         """
         Calculates the value of the CDF for a given x-value
         """
-        cdf = (0.5 * (1 + self._erf((x - self.mean) /
-                                   (self.stddev * 2 ** 0.5))))
+        cdf = (0.5 * (1 + self._erf((x - self.mean)
+               / (self.stddev * 2 ** 0.5))))
         return cdf
 
     def _erf(self, z):
         """
         Error function approximation using the Maclaurin series
         """
-        result = (2 / (3.1415926536 ** 0.5)) * (z - (z ** 3) / 3 + (z ** 5) / 10
-                                         - (z ** 7) / 42 + (z ** 9) / 216)
+        result = (2 / (3.1415926536 ** 0.5)) * (z - (z ** 3) /
+                  3 + (z ** 5) / 10 - (z ** 7) / 42 + (z ** 9) / 216)
         return result
