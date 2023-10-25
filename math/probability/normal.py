@@ -53,9 +53,6 @@ class Normal:
         """
         Calculates the value of the CDF for a given x-value
         """
-        if not isinstance(x, (int, float)):
-            raise ValueError("x must be a numeric value")
-        
         z = (x - self.mean) / (self.stddev * (2 ** 0.5))
         cdf = 0.5 * (1 + self._erf(z))
         return cdf
