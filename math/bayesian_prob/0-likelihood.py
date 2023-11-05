@@ -21,9 +21,8 @@ def likelihood(x, n, P):
     if not isinstance(P, np.ndarray) or len(P.shape) != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
 
-    for p in P:
-        if p < 0 or p > 1:
-            raise ValueError('All values in P must be in the range [0, 1]')
+    if not all( p < 0 or p > 1 for p in P):
+        raise ValueError("All values in P must be in the range [0, 1]")
     fact = np.math.factorial
     f = fact(n)/ (fact(n - x) * fact(x))
     likelihood = f * (P ** x) * ((1 - P) ** (n - x))
