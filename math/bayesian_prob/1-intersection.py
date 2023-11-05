@@ -32,7 +32,7 @@ def intersection(x, n, P, Pr):
             raise ValueError('All values in Pr must be in the range [0, 1]')
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError('Pr must sum to 1')
-    fact = np.math.factorial
-    likelihood = fact(n)/(fact(x)*fact(n-x))
+    f= np.math.factorial
+    likelihood = f(n) / (f(x)* f(n-x))
     likelihood *= (P**x) * ((1-P)**(n-x))
-    return likelihood * P
+    return likelihood * Pr
