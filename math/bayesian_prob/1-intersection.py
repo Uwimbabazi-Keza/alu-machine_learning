@@ -33,6 +33,6 @@ def intersection(x, n, P, Pr):
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError('Pr must sum to 1')
     f = np.math.factorial
-    likelihood = f(n) / (f(x) * f(n-x))
+    likelihood = f(n) / (f(x)* f(n-x))
     likelihood *= (P**x) * ((1-P)**(n-x))
     return likelihood * Pr
