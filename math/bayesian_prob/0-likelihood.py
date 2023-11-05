@@ -18,12 +18,12 @@ def likelihood(x, n, P):
     if x > n:
         raise ValueError("x cannot be greater than n")
     
-    if not isinstance(P, np.ndarray) or P.ndim != 1:
+    if not isinstance(P, np.ndarray) or len(P.shape) != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
 
-    if not all(0 <= p <= 1 for p in P):
+    if not all( p < 0 or p > 1 for p in P):
         raise ValueError("All values in P must be in the range [0, 1]")
-    fact = np.math.factorial(n)
+    fact = np.math.factorial
     f = fact(n)/ (fact(n - x) * fact(x))
     likelihood = f * (P ** x) * ((1 - P) ** (n - x))
     return likelihood
