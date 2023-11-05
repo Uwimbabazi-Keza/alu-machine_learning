@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 0-likelihood.py, write a function def intersection(x, n, P, Pr):
-that calculates the intersection of obtaining this data with the various 
+that calculates the intersection of obtaining this data with the various
 hypothetical probabilities
 """
 
