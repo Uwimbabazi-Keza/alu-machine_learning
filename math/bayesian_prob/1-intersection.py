@@ -16,8 +16,8 @@ def intersection(x, n, P, Pr):
     if type(n) is not int or n <= 0:
         raise ValueError('n must be a positive integer')
     if type(x) is not int or x < 0:
-        error = 'x must be an integer that is greater than or equal to 0'
-        raise ValueError(error)
+        message = 'x must be an integer that is greater than or equal to 0'
+        raise ValueError(message)
     if x > n:
         raise ValueError('x cannot be greater than n')
     if type(P) is not np.ndarray or len(P.shape) != 1:
@@ -33,6 +33,6 @@ def intersection(x, n, P, Pr):
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError('Pr must sum to 1')
     f= np.math.factorial
-    likelihood = f(n) / (f(x)* f(n-x))
+    likelihood = f(n) / (f(x) * f(n-x))
     likelihood *= (P**x) * ((1-P)**(n-x))
     return likelihood * Pr
