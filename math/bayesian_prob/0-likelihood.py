@@ -21,9 +21,8 @@ def likelihood(x, n, P):
     if not isinstance(P, np.ndarray) or P.ndim != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
 
-    if not ((p > 1 or p < 0) for p in P):
+    if not all((p > 1 or p < 0) for p in P):
         raise ValueError("All values in P must be in the range [0, 1]")
-    
-    likelihoods = [np.math.comb(n, x) * p**x * (1-p)**(n-x) for p in P]
-
-    return np.array(likelihoods)
+    f = np.math.factorial(n) / (np.math.factorial(n - x) * np.math.factorial(x))
+    likelihood = f * (P ** x) * ((1 - P) ** (n - x))
+    return likelihood
