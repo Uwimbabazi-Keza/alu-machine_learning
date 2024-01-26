@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,iterations, save_path="/tmp/model.ckpt"):
+"""def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
+activations, alpha,iterations, save_path="/tmp/model.ckpt"):
 that builds, trains, and saves a neural network classifier
 """
 
@@ -11,7 +12,8 @@ create_train_op = __import__('5-create_train_op').create_train_op
 forward_prop = __import__('2-forward_prop').forward_prop
 
 
-def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, iterations, save_path="/tmp/model.ckpt"):
+def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
+          activations, alpha, iterations, save_path="/tmp/model.ckpt"):
     """
     Builds, trains, and saves a neural network classifier.
     """
@@ -64,3 +66,4 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
         print("\tValidation Cost: {}".format(loss_valid))
         print("\tValidation Accuracy: {}".format(accuracy_valid))
         return saver.save(sess, save_path)
+    
