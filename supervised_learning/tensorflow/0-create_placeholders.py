@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Functiton def create_placeholders(nx, classes): returns two placeholders, x and y
+"""Functiton def create_placeholders(nx, classes):
+returns two placeholders, x and y
 """
 
 import tensorflow as tf
+
 
 def create_placeholders(nx, classes):
    """returns two placeholders, x and y"""
