@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
-iterations, save_path="/tmp/model.ckpt"):
+"""def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,iterations, save_path="/tmp/model.ckpt"):
 that builds, trains, and saves a neural network classifier
 """
 
@@ -14,7 +13,7 @@ forward_prop = __import__('2-forward_prop').forward_prop
 
 def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, iterations, save_path="/tmp/model.ckpt"):
     """
-    builds, trains, and saves a neural network classifier.
+    Builds, trains, and saves a neural network classifier.
     """
 
     tf.reset_default_graph()
@@ -39,15 +38,19 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
+ 
         sess.run(tf.global_variables_initializer())
 
         for i in range(iterations + 1):
+
             _, train_cost, train_accuracy = sess.run([train_op, loss, accuracy],
                                                      feed_dict={x: X_train, y: Y_train})
 
             if i % 100 == 0 or i == 0 or i == iterations:
+
                 valid_cost, valid_accuracy = sess.run([loss, accuracy],
                                                       feed_dict={x: X_valid, y: Y_valid})
+
 
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(train_cost))
