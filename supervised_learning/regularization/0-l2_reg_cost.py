@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""function that calculates the cost of a neural network 
+"""function that calculates the cost of a neural network
 with L2 regularization
 """
 
