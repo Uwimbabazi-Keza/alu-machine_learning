@@ -10,8 +10,9 @@ def l2_reg_create_layer(prev, n, activation, lambtha):
     that includes L2 regularization
     """
 
-    regularizer = tf.keras.regularizers.l2(lambtha)
-    weight = tf.keras.initializers.VarianceScaling(mode="fan_avg")
+    regularizer = tf.contrib.layers.l2_regularizer(lambtha)
+    weight = tf.contrib.layers.variance_scaling_initializer(
+        mode="FAN_AVG")
     
     layer = tf.keras.layers.Dense(
         units=n,
