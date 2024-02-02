@@ -11,7 +11,7 @@ def dropout_create_layer(prev, n, activation, keep_prob):
         mode="FAN_AVG")
     dropout_layer = tf.layers.Dropout(keep_prob)
     layer_model = tf.layers.Dense(units=n, activation=activation,
-                                  name="layer", 
+                                  name="layer",
                                   kernel_initializer=weight_initializer,
                                   kernel_regularizer=dropout_layer)
     return layer_model(prev)
