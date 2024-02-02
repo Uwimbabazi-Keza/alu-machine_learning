@@ -10,10 +10,8 @@ def l2_reg_cost(cost, lambtha, weights):
     network with L2 regularization
     """
 
-    l2_reg_term = sum(tf.nn.l2_loss(w) for w in weights)
-
-    l2_reg_term *= (lambtha / 2)
-
+    l2_reg_term =  tf.losses.get_regularization_losses()
+    
     cost_with_reg = cost + l2_reg_term
 
     return cost_with_reg
