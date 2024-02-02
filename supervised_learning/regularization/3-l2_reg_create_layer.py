@@ -13,7 +13,6 @@ def l2_reg_create_layer(prev, n, activation, lambtha):
     initializer = tf.keras.initializers.glorot_uniform()
     regularizer = tf.keras.regularizers.l2(lambtha)
     weights = tf.Variable(initializer(shape=(prev.shape[1], n)), name="kernel", regularizer=regularizer)
-
     
     biases = tf.Variable(tf.zeros((1, n)), name="bias")
 
