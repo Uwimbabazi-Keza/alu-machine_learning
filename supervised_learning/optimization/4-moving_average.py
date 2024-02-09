@@ -4,6 +4,7 @@ calculates the weighted moving average
 of a data set
 """
 
+
 def moving_average(data, beta):
     """
     Calculate the weighted moving average of a
@@ -11,13 +12,13 @@ def moving_average(data, beta):
     """
     moving_avg = []
     weighted_sum = 0.0
-    bias_correction = 1.0
+    correction_factor = 1.0
 
-    for i, value in enumerate(data, start=1):
+    for i, value in enumerate(data):
         weighted_sum = beta * weighted_sum + (1 - beta) * value
-        corrected_weighted_sum = weighted_sum / bias_correction
-        moving_avg.append(corrected_weighted_sum)
+        avg = weighted_sum / correction_factor
+        moving_avg.append(avg)
 
-        bias_correction *= beta
+        correction_factor *= beta
 
     return moving_avg
