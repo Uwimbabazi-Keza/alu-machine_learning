@@ -5,6 +5,7 @@ matrices the same way
 
 import numpy as np
 
+
 def shuffle_data(X, Y):
     """
     Shuffles the data points in two matrices
