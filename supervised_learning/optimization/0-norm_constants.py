@@ -5,6 +5,7 @@
 
 import numpy as np
 
+
 def normalization_constants(X):
     """
     Calculate the mean and standard deviation of
