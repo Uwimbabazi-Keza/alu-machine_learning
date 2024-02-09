@@ -13,4 +13,3 @@ def normalize(X, m, s):
     normalized_X = (X - m) / s
 
     return normalized_X
-
