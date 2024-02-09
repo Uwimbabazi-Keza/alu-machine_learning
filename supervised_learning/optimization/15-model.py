@@ -62,6 +62,6 @@ def model(Data_train, Data_valid, layers, activations,
                 print("\tTraining Accuracy: {}".format(train_accuracy))
                 print("\tValidation Cost: {}".format(valid_cost))
                 print("\tValidation Accuracy: {}".format(valid_accuracy))
-        save = saver.save(session, save_path)
+        saves = saver.save(session, save_path)
     
-    return save
+    return saves
