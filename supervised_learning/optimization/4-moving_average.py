@@ -11,14 +11,10 @@ def moving_average(data, beta):
     data set with bias correction.
     """
     moving_avg = []
-    weighted_sum = 0.0
-    correction_factor = 1.0
+    v = 0
 
-    for i, value in enumerate(data):
-        weighted_sum = beta * weighted_sum + (1 - beta) * value
-        avg = weighted_sum / correction_factor
-        moving_avg.append(avg)
-
-        correction_factor *= beta
+    for i in range(len(data)):
+        v = (beta * v) + ((1 - beta) * data[i])
+        moving_avg.append(v / (1 - (beta ** (i + 1))))
 
     return moving_avg
