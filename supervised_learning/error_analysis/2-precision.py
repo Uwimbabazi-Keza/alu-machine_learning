@@ -12,5 +12,4 @@ def precision(confusion):
     false_positives = np.sum(confusion, axis=0) - true_positives
     precision = np.where(true_positives + false_positives == 0, 0,
                          true_positives / (true_positives + false_positives))
-    
     return precision
