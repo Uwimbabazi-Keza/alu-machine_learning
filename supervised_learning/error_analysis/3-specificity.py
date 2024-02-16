@@ -17,7 +17,7 @@ def specificity(confusion):
                         confusion[:, i]) + confusion[i, i]
         false_positives = np.sum(confusion[:, i]) - confusion[i, i]
 
-        specificity[i] = true_negatives / (true_negatives + false_positives) if (
-                        true_negatives + false_positives) != 0 else 0
+        specificity[i] = true_negatives / (
+                        true_negatives + false_positives) if (true_negatives + false_positives) != 0 else 0
 
     return specificity
