@@ -10,12 +10,12 @@ def specificity(confusion):
     class in a confusion matrix"""
     
     classes = confusion.shape[0]
-    spec_per_class = np.zeros(classes)
+    specificity = np.zeros(classes)
 
     for i in range(classes):
-        true_negatives = np.sum(np.delete(confusion, i, axis=0)[:, np.delete(confusion, i, axis=1)].flatten())
+        true_negatives = np.sum(confusion) - np.sum(confusion[i]) - np.sum(confusion[:, i]) + confusion[i, i]
         false_positives = np.sum(confusion[:, i]) - confusion[i, i]
 
-        spec_per_class[i] = true_negatives / (true_negatives + false_positives) if (true_negatives + false_positives) != 0 else 0
+        specificity[i] = true_negatives / (true_negatives + false_positives) if (true_negatives + false_positives) != 0 else 0
 
-    return spec_per_class
+    return specificity
