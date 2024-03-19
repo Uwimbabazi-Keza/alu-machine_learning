@@ -17,7 +17,7 @@ def availableShips(passengerCount):
         data = r.json()
         starships = data.get("results", [])
         for starship in starships:
-            if starship.get('passengers', '').isdigit():
+            if starship.get('passengers', '').replace(",", "").isdigit():
                 if int(starship['passengers']) >= passengerCount:
                     ships.append(starship['name'])
         url = data.get("next")
