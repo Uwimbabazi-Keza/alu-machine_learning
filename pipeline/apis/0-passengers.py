@@ -8,7 +8,7 @@ def availableShips(passengerCount):
     """A method that returns the list of ships
     that can hold a given number of passengers"""
 
-    url = "https://swapi-api.alx-tools.com/api/starships/"
+    url = "https://swapi-api.hbtn.io/api/starships/?format=json"
     
     ships = []
     
