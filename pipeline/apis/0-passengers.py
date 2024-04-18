@@ -23,3 +23,12 @@ def availableShips(passengerCount):
         url = data.get("next")
     
     return ships
+
+passenger_count = 310
+ships = availableShips(passenger_count)
+if ships:
+    print("Ships that can hold at least {} passengers:".format(passenger_count))
+    for ship in ships:
+        print("-", ship)
+else:
+    print("No ships available for the given passenger count.")
