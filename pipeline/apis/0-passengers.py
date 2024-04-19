@@ -1,34 +1,27 @@
 #!/usr/bin/env python3
-"""A method that returns the list of ships
-that can hold a given number of passengers"""
+"""
+Swapi API, create a method that returns the list of
+ships that can hold a given number of passengers
+"""
+
 
 import requests
 
+
 def availableShips(passengerCount):
-    """A method that returns the list of ships
-    that can hold a given number of passengers"""
-
-    url = "https://swapi-api.hbtn.io/api/starships/?format=json"
-    
+    """Swapi API, create a method that returns the list of
+    ships that can hold a given number of passengers"""
+    import requests
+    url = "https://swapi-api.alx-tools.com/api/starships/"
+    response = requests.get(url)
+    data = response.json()
     ships = []
-    
-    while url:
-        r = requests.get(url)
-        data = r.json()
-        starships = data.get("results")
-        for starship in starships:
-            if starship.get('passengers').isdigit():
-                if int(starship['passengers']) >= passengerCount:
-                    ships.append(starship['name'])
-        url = data.get("next")
-    
-    return ships
+    # print(data["results"])
+    for result in data['results']:
+        if result['passengers'] != "n/a":
+            passengers_no = int(result['passengers'].replace(',', ''))
+            # print(passengers_no)
+            if passengers_no >= passengerCount:
+                ships.append(result['name'])
 
-passenger_count = 310
-ships = availableShips(passenger_count)
-if ships:
-    print("Ships that can hold at least {} passengers:".format(passenger_count))
-    for ship in ships:
-        print("-", ship)
-else:
-    print("No ships available for the given passenger count.")
+    return ships
