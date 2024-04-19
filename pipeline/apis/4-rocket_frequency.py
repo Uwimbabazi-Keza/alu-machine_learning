@@ -1,34 +1,24 @@
 #!/usr/bin/env python3
-
-"""
-using the (unofficial) SpaceX API, write a script that displays
-the number of launches per rocket
-"""
-
+""" (unofficial) SpaceX API, write a script that displays
+the number of launches per rocket"""
 import requests
 
 
-def launches_per_rocket():
-    """using the (unofficial) SpaceX API, write a script that displays
+if __name__ == '__main__':
+    """ (unofficial) SpaceX API, write a script that displays
     the number of launches per rocket"""
     url = "https://api.spacexdata.com/v4/launches"
-    response = requests.get(url)
-    data = response.json()
-    rockets = {}
-    for launch in data:
-        rocket_id = launch['rocket']
-        rocket_url = "https://api.spacexdata.com/v4/rockets/{}".format(
-            rocket_id)
-        rocket_response = requests.get(rocket_url)
-        rocket_data = rocket_response.json()
-        rocket_name = rocket_data['name']
-        if rocket_name in rockets:
-            rockets[rocket_name] += 1
+    r = requests.get(url)
+    rocket_dict = {"5e9d0d95eda69955f709d1eb": 0}
+
+    for launch in r.json():
+        if launch["rocket"] in rocket_dict:
+            rocket_dict[launch["rocket"]] += 1
         else:
-            rockets[rocket_name] = 1
-    for rocket in sorted(rockets.items(), key=lambda x: (-x[1], x[0])):
-        print("{}: {}".format(rocket[0], rocket[1]))
+            rocket_dict[launch["rocket"]] = 1
+    for key, value in sorted(rocket_dict.items(),
+                             key=lambda kv: kv[1], reverse=True):
+        rurl = "https://api.spacexdata.com/v4/rockets/" + key
+        req = requests.get(rurl)
 
-
-if __name__ == "__main__":
-    launches_per_rocket()
+        print(req.json()["name"] + ": " + str(value))

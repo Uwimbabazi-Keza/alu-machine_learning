@@ -11,17 +11,21 @@ import requests
 def availableShips(passengerCount):
     """Swapi API, create a method that returns the list of
     ships that can hold a given number of passengers"""
-    import requests
-    url = "https://swapi-api.alx-tools.com/api/starships/"
-    response = requests.get(url)
-    data = response.json()
-    ships = []
-    # print(data["results"])
-    for result in data['results']:
-        if result['passengers'] != "n/a":
-            passengers_no = int(result['passengers'].replace(',', ''))
-            # print(passengers_no)
-            if passengers_no >= passengerCount:
-                ships.append(result['name'])
 
-    return ships
+    res = requests.get('https://swapi-api.alx-tools.com/api/starships')
+
+    output = []
+    while res.status_code == 200:
+        res = res.json()
+        for ship in res['results']:
+            passengers = ship['passengers'].replace(',', '')
+            try:
+                if int(passengers) >= passengerCount:
+                    output.append(ship['name'])
+            except ValueError:
+                pass
+        try:
+            res = requests.get(res['next'])
+        except Exception:
+            break
+    return output
