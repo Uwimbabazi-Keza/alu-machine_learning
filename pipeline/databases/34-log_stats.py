@@ -13,15 +13,12 @@ def check_logs():
     Python script that provides some stats about
     Nginx logs stored in MongoDB
     """
-    # Connect to MongoDB
     client = MongoClient()
     db = client.logs
     collection = db.nginx
 
-    # Count total number of documents
     total_logs = collection.count_documents({})
 
-    # Count number of documents with each method
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     method_counts = {}
     for method in methods:
@@ -34,12 +31,3 @@ def check_logs():
 
     return total_logs, method_counts, status_check_count
 
-
-if __name__ == "__main__":
-    total_logs, method_counts, status_check_count = check_logs()
-
-    print(f"{total_logs} logs")
-    print("Methods:")
-    for method, count in method_counts.items():
-        print(f"\tmethod {method}: {count}")
-    print(f"{status_check_count} status check")
