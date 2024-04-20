@@ -6,8 +6,7 @@ from datetime import datetime
 
 
 if __name__ == '__main__':
-    """SpaceX API, write a script that displays the
-    upcoming launch with these information"""
+    """pipeline api"""
     url = "https://api.spacexdata.com/v4/launches/upcoming"
     r = requests.get(url)
     recent = 0
