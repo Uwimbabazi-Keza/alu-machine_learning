@@ -8,7 +8,8 @@ import numpy as np
 
 class NeuralNetwork:
     """a class NeuralNetwork that defines a neural network
-    with one hidden layer performing binary classification (based on 9-neural_network.py):"""
+    with one hidden layer performing binary classification
+    (based on 9-neural_network.py):"""
 
     def __init__(self, nx, nodes):
         """initialize"""

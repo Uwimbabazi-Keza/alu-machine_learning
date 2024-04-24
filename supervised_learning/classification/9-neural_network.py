@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """a class NeuralNetwork that defines a neural
-network with one hidden layer performing binary classification (based on 8-neural_network.py):
+network with one hidden layer performing binary
+classification (based on 8-neural_network.py):
 """
 
 import numpy as np
