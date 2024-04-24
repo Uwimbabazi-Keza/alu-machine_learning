@@ -143,7 +143,8 @@ class DeepNeuralNetwork():
         return self.evaluate(X, Y)
 
     def save(self, filename):
-        """Function that saves the instance object to a file in pickle format"""
+        """Function that saves the instance
+        object to a file in pickle format"""
         ext = ".pkl"
         if ext not in filename:
             filename += ext

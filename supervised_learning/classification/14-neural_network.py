@@ -6,9 +6,9 @@ import numpy as np
 
 
 class NeuralNetwork:
-    """class NeuralNetwork that defines a neural 
+    """class NeuralNetwork that defines a neural
     network with one hidden
-    layer performing binary classification 
+    layer performing binary classification
     (based on 13-neural_network.py):"""
 
     def __init__(self, nx, nodes):
@@ -91,11 +91,8 @@ class NeuralNetwork:
         dZ1 = dA1 * A1 * (1 - A1)
         dw_1 = (1 / m) * np.dot(dZ1, X.T)
         db_1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
-
-
         db_2 = np.sum(A2 - Y) / m
         dw_2 = np.dot((A2 - Y), A1.T) / m
-
         self.__W1 = self.__W1 - alpha * dw_1
         self.__W2 = self.__W2 - alpha * dw_2
         self.__b1 = self.__b1 - alpha * db_1
