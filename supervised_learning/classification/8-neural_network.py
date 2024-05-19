@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Update the class NST to compute the gradients for the generated image:"""
+"""update the class NST to compute the gradients for the generated image:"""
 
 import numpy as np
 import tensorflow as tf
