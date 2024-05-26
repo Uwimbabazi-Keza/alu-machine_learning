@@ -11,7 +11,7 @@ def rnn(rnn_cell, X, h_0):
     H = np.zeros((t + 1, m, h))
     H[0] = h_0
     outputs = []
-    
+
     h_prev = h_0
     for step in range(t):
         x_t = X[step]
@@ -19,6 +19,6 @@ def rnn(rnn_cell, X, h_0):
         H[step + 1] = h_next
         outputs.append(y)
         h_prev = h_next
-    
+
     Y = np.array(outputs)
     return H, Y
