@@ -15,7 +15,6 @@ def deep_rnn(rnn_cells, X, h_0):
 
     for step in range(t):
         x_t = X[step]
-        
 
         for layer in range(l):
             h_prev = H[step, layer]
@@ -23,10 +22,10 @@ def deep_rnn(rnn_cells, X, h_0):
                 h_next, y = rnn_cells[layer].forward(h_prev, x_t)
             else:
                 h_next, y = rnn_cells[layer].forward(h_prev, H[step, layer - 1])
-            
+
             H[step + 1, layer] = h_next
-        
+
         outputs.append(y)
-    
+
     Y = np.array(outputs)
     return H, Y
