@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create the class RNNCell that 
+"""Create the class RNNCell that
 represents a cell of a simple RNN:
 """
 import numpy as np
