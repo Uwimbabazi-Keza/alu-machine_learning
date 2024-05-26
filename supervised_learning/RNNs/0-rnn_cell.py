@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Create the class RNNCell that represents a cell of a simple RNN:
+"""Create the class RNNCell that 
+represents a cell of a simple RNN:
 """
 import numpy as np
 
 
 class RNNCell:
+    """class RNNCell"""
     def __init__(self, i, h, o):
         """initialize"""
         self.Wh = np.random.normal(size=(i + h, h))
@@ -18,7 +20,7 @@ class RNNCell:
         h_next = np.tanh(np.dot(concatenated, self.Wh) + self.bh)
         y_raw = np.dot(h_next, self.Wy) + self.by
         y = self.softmax(y_raw)
-        
+
         return h_next, y
 
     @staticmethod
