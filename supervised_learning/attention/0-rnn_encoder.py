@@ -2,13 +2,14 @@
 """class RNNEncoder that inherits from tensorflow.keras.layers
 Layer to encode for machine translation"""
 
-import tensorflow as tf
-from tensorflow.keras.layers import Embedding, GRU
+from tensorflow.keras.layers import Layer, Embedding, GRU
+import tensorflow.keras.backend as K
 
 
-class RNNEncoder(tf.keras.layers.Layer):
-    """Class constructor def __init__(self, vocab, embedding, units, batch)"""
+class RNNEncoder(Layer):
+    """class RNNEncoder"""
     def __init__(self, vocab, embedding, units, batch):
+        """initialize"""
         super(RNNEncoder, self).__init__()
         self.batch = batch
         self.units = units
@@ -19,9 +20,11 @@ class RNNEncoder(tf.keras.layers.Layer):
                        recurrent_initializer='glorot_uniform')
 
     def initialize_hidden_state(self):
-        return tf.zeros((self.batch, self.units))
+        """initialize hidden state"""
+        return K.zeros((self.batch, self.units))
 
     def call(self, x, initial):
+        """call"""
         x = self.embedding(x)
         outputs, hidden = self.gru(x, initial_state=initial)
         return outputs, hidden
