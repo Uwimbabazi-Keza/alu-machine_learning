@@ -26,7 +26,8 @@ class RNNEncoder(tf.keras.layers.Layer):
         return tf.zeros((self.batch, self.units))
 
     def call(self, x, initial):
-        """call"""
+        """Calculates the attention context vector and
+        attention weights"""
         x = self.embedding(x)
         outputs, hidden = self.gru(x, initial_state=initial)
         return outputs, hidden
