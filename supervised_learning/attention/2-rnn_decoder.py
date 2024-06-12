@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A class RNNDecoder that inherits from tensorflow.keras.layers.
+"""class RNNDecoder that inherits from tensorflow.keras.layers.
 Layer to decode for machine translation"""
 
 import tensorflow as tf
