@@ -24,7 +24,7 @@ class RNNDecoder(tf.keras.layers.Layer):
         
     def call(self, x, s_prev, hidden_states):
         """Decode for machine translation"""
-        x = self.embedding(x) 
+        x = self.embedding(x)
         context_vector, attention_weights = self.attention(s_prev, hidden_states)
         x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
         output, state = self.gru(x, initial_state=s_prev)
