@@ -1,25 +1,18 @@
 #!/usr/bin/env python3
-"""calculates the scaled dot product
-attention"""
+"""calculates the scaled
+dot product attention"""
 
-import numpy as np
-
+import tensorflow as tf
 
 def sdp_attention(Q, K, V, mask=None):
-    """calculates the scaled dot product
-    attention"""
-
-    matmul_qk = np.matmul(Q, K.transpose(-2, -1))
-    dk = Q.shape[-1]
-    scaled_attention_logits = matmul_qk / np.sqrt(dk)
-
+    """calculates the scaled
+    dot product attention"""
+    dk = tf.cast(tf.shape(K)[-1], tf.float32)
+    matmul_qk = tf.matmul(Q, K, transpose_b=True)
+    scaled_attention_logits = matmul_qk / tf.math.sqrt(dk)
     if mask is not None:
         scaled_attention_logits += (mask * -1e9)
 
-    attention_weights = np.exp(scaled_attention_logits)
-    attention_weights_sum = np.sum(attention_weights, axis=-1, keepdims=True)
-    attention_weights /= attention_weights_sum
-
-    output = np.matmul(attention_weights, V)
-
+    attention_weights = tf.nn.softmax(scaled_attention_logits, axis=-1)
+    output = tf.matmul(attention_weights, V)
     return output, attention_weights
