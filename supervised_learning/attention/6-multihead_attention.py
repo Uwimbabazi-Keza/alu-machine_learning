@@ -4,14 +4,14 @@ tensorflow.keras.layers.Layer to perform multi head
 attention"""
 
 import tensorflow as tf
-from tensorflow.keras.layers import Dense, Layer
+sdp_attention = __import__('5-sdp_attention').sdp_attention
 
 
-class MultiHeadAttention(Layer):
+class MultiHeadAttention(tf.keras.layers.Layer):
     """a class MultiHeadAttention that inherits from
     tensorflow.keras.layers.Layer to perform multi head
     attention"""
-    
+
     def __init__(self, dm, h):
         """initialize"""
         super(MultiHeadAttention, self).__init__()
@@ -21,19 +21,20 @@ class MultiHeadAttention(Layer):
         self.dm = dm
         self.depth = dm // h
 
-        self.Wq = Dense(dm)
-        self.Wk = Dense(dm)
-        self.Wv = Dense(dm)
-        self.linear = Dense(dm)
+        self.Wq = tf.keras.layers.Dense(dm)
+        self.Wk = tf.keras.layers.Dense(dm)
+        self.Wv = tf.keras.layers.Dense(dm)
+        self.linear = tf.keras.layers.Dense(dm)
 
     def split_heads(self, x, batch_size):
-        """Split the last dimension into (h, depth)."""
+        """Split the last dimension into (h, depth) and transpose."""
         x = tf.reshape(x, (batch_size, -1, self.h, self.depth))
         return tf.transpose(x, perm=[0, 2, 1, 3])
 
     def call(self, Q, K, V, mask=None):
-        """call function"""
+        """multi-head attention mechanism"""
         batch_size = tf.shape(Q)[0]
+
         Q = self.Wq(Q)
         K = self.Wk(K)
         V = self.Wv(V)
@@ -42,11 +43,11 @@ class MultiHeadAttention(Layer):
         K = self.split_heads(K, batch_size)
         V = self.split_heads(V, batch_size)
 
-        sdp_attention = __import__('5-sdp_attention').sdp_attention
         scaled_attention, attention_weights = sdp_attention(Q, K, V, mask)
 
         scaled_attention = tf.transpose(scaled_attention, perm=[0, 2, 1, 3])
         concat_attention = tf.reshape(scaled_attention, (batch_size, -1, self.dm))
+
         output = self.linear(concat_attention)
 
         return output, attention_weights
