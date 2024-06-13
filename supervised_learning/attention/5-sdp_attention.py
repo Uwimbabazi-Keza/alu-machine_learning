@@ -4,6 +4,7 @@ dot product attention"""
 
 import tensorflow as tf
 
+
 def sdp_attention(Q, K, V, mask=None):
     """calculates the scaled
     dot product attention"""
