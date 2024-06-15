@@ -7,25 +7,48 @@ EncoderBlock = __import__('7-transformer_encoder_block').EncoderBlock
 
 
 class Encoder(tf.keras.layers.Layer):
-    """create the encoder for a transformer"""
-    def __init__(self, N, dm, h, hidden, input_vocab, max_seq_len, drop_rate=0.1):
+    """Class to create the encoder for a transformer"""
+    def __init__(self, N, dm, h, hidden, input_vocab, max_seq_len,
+                 drop_rate=0.1):
+        """initialize"""
+        if type(N) is not int:
+            raise TypeError(
+                "N must be int representing number of blocks in the encoder")
+        if type(dm) is not int:
+            raise TypeError(
+                "dm must be int representing dimensionality of model")
+        if type(h) is not int:
+            raise TypeError(
+                "h must be int representing number of heads")
+        if type(hidden) is not int:
+            raise TypeError(
+                "hidden must be int representing number of hidden units")
+        if type(input_vocab) is not int:
+            raise TypeError(
+                "input_vocab must be int representing size of input vocab")
+        if type(max_seq_len) is not int:
+            raise TypeError(
+                "max_seq_len must be int representing max sequence length")
+        if type(drop_rate) is not float:
+            raise TypeError(
+                "drop_rate must be float representing dropout rate")
         super(Encoder, self).__init__()
-        
         self.N = N
         self.dm = dm
-        self.embedding = tf.keras.layers.Embedding(input_vocab, dm)
+        self.embedding = tf.keras.layers.Embedding(input_dim=input_vocab,
+                                                   output_dim=dm)
         self.positional_encoding = positional_encoding(max_seq_len, dm)
-        self.blocks = [EncoderBlock(dm, h, hidden, drop_rate) for _ in range(N)]
+        self.blocks = [EncoderBlock(dm, h, hidden, drop_rate)
+                       for block in range(N)]
         self.dropout = tf.keras.layers.Dropout(drop_rate)
 
     def call(self, x, training, mask):
-        """Perform the forward pass for the encoder."""
+        """Calls the encoder and returns the encoder's output"""
         seq_len = tf.shape(x)[1]
 
         x = self.embedding(x)
         x *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
-        x += self.positional_encoding[:seq_len]
-
+        x += self.positional_encoding[:seq_len, :]
         x = self.dropout(x, training=training)
 
         for i in range(self.N):
