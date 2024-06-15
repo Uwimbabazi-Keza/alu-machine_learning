@@ -11,6 +11,18 @@ class RNNDecoder(tf.keras.layers.Layer):
     Layer to decode for machine translation"""
     def __init__(self, vocab, embedding, units, batch):
         """Initialize the RNNDecoder layer"""
+        if type(vocab) is not int:
+            raise TypeError(
+                "vocab must be int representing the size of output vocabulary")
+        if type(embedding) is not int:
+            raise TypeError(
+                "embedding must be int representing dimensionality of vector")
+        if type(units) is not int:
+            raise TypeError(
+                "units must be int representing the number of hidden units")
+        if type(batch) is not int:
+            raise TypeError(
+                "batch must be int representing the batch size")
         super(RNNDecoder, self).__init__()
         self.vocab = vocab
         self.embedding_dim = embedding
