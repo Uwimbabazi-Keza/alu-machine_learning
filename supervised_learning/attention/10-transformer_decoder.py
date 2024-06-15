@@ -10,6 +10,28 @@ class Decoder(tf.keras.layers.Layer):
     """create the decoder for a transformer"""
     def __init__(self, N, dm, h, hidden, target_vocab, max_seq_len, drop_rate=0.1):
         """initialize"""
+
+        if type(N) is not int:
+            raise TypeError(
+                "N must be int representing number of blocks in the encoder")
+        if type(dm) is not int:
+            raise TypeError(
+                "dm must be int representing dimensionality of model")
+        if type(h) is not int:
+            raise TypeError(
+                "h must be int representing number of heads")
+        if type(hidden) is not int:
+            raise TypeError(
+                "hidden must be int representing number of hidden units")
+        if type(target_vocab) is not int:
+            raise TypeError(
+                "target_vocab must be int representing size of target vocab")
+        if type(max_seq_len) is not int:
+            raise TypeError(
+                "max_seq_len must be int representing max sequence length")
+        if type(drop_rate) is not float:
+            raise TypeError(
+                "drop_rate must be float representing dropout rate")
         super(Decoder, self).__init__()
         
         self.N = N
@@ -21,7 +43,7 @@ class Decoder(tf.keras.layers.Layer):
     
     def call(self, x, encoder_output, training, look_ahead_mask, padding_mask):
         """Perform the forward pass for the decoder."""
-        seq_len = tf.shape(x)[1]
+        seq_len = x.shape[1]
 
         x = self.embedding(x)
         x *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
