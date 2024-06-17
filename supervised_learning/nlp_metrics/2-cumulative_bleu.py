@@ -42,9 +42,12 @@ def individual_ngram_bleu(references, sentence, n):
     bleu_score = brevity_penalty * precision
     return bleu_score
 
+
 def cumulative_bleu(references, sentence, n):
     """Calculates the cumulative n-gram BLEU score for a sentence"""
-    bleu_scores = [individual_ngram_bleu(references, sentence, i) for i in range(1, n+1)]
+    bleu_scores = [
+        individual_ngram_bleu(
+            references, sentence, i) for i in range(1, n+1)]
     cumulative_bleu_score = np.exp(
         np.mean(np.log(bleu_scores))) if all(
             score > 0 for score in bleu_scores) else 0.0
