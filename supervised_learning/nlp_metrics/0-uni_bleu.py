@@ -10,14 +10,18 @@ def uni_bleu(references, sentence):
 
     ref_lengths = [len(ref) for ref in references]
 
-    closest_ref_len = min(ref_lengths, key=lambda ref_len: (abs(ref_len - len_sentence), ref_len))
+    closest_ref_len = min(ref_lengths, key=lambda ref_len: (abs
+                                                            (ref_len - len_sentence), ref_len
+                                                            ))
 
     sentence_unigrams = set(sentence)
     max_counts = {}
     for word in sentence_unigrams:
         max_counts[word] = max(ref.count(word) for ref in references)
 
-    clipped_count = sum(min(sentence.count(word), max_counts[word]) for word in sentence_unigrams)
+    clipped_count = sum(min(
+        sentence.count(word), max_counts[word]
+        ) for word in sentence_unigrams)
     precision = clipped_count / len_sentence
 
     if len_sentence > closest_ref_len:
