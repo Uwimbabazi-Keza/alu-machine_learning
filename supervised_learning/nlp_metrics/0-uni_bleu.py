@@ -10,9 +10,9 @@ def uni_bleu(references, sentence):
 
     ref_lengths = [len(ref) for ref in references]
 
-    closest_ref_len = min(ref_lengths, key=lambda ref_len: (abs
-                                                            (ref_len - len_sentence), ref_len
-                                                            ))
+    closest_ref_len = min(
+        ref_lengths, key=lambda ref_len: (
+            abs(ref_len - len_sentence), ref_len))
 
     sentence_unigrams = set(sentence)
     max_counts = {}
