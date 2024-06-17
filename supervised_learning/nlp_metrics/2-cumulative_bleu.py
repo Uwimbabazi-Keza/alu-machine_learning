@@ -28,7 +28,7 @@ def individual_ngram_bleu(references, sentence, n):
         for ngram in ref_ngram_counts:
             max_counts[ngram] = max(
                 max_counts.get(ngram, 0), ref_ngram_counts[ngram])
-    
+
     clipped_count = sum(min
                         (sentence_ngrams.count(ngram), max_counts.get(
                             ngram, 0)) for ngram in set(sentence_ngrams))
