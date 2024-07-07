@@ -22,7 +22,7 @@ def viterbi(Observation, Emission, Transition, Initial):
     T = Observation.shape[0]
     N, M = Emission.shape
     if (Transition.shape[0] != N or Transition.shape[1] != N or
-         Initial.shape[0] != N or Initial.shape[1] != 1):
+    Initial.shape[0] != N or Initial.shape[1] != 1):
         return None, None
 
     V = np.zeros((N, T))
