@@ -7,21 +7,24 @@ import numpy as np
 def regular(P):
     """Determines the steady
     state probabilities of a regular Markov chain."""
-    if not isinstance(P, np.ndarray):
+    if type(P) is not np.ndarray:
         return None
-    if len(P.shape) != 2 or P.shape[0] != P.shape[1]:
+    if len(P.shape) != 2:
         return None
-    
-    n = P.shape[0]
-    
-    A = P.T - np.eye(n)
-    
-    A = np.vstack([A, np.ones(n)])
-    b = np.zeros(n + 1)
-    b[-1] = 1
-    
-    try:
-        steady_state = np.linalg.lstsq(A, b, rcond=None)[0]
-        return steady_state
-    except np.linalg.LinAlgError:
+    n, n_t = P.shape
+    if n != n_t:
         return None
+    sum_test = np.sum(P, axis=1)
+    for elem in sum_test:
+        if not np.isclose(elem, 1):
+            return None
+
+    evals, evecs = np.linalg.eig(P.T)
+    stationary = evecs / evecs.sum()
+    stationary = stationary.real
+
+    for i in np.dot(stationary.T, P):
+        if (i >= 0).all() and np.isclose(i.sum(), 1):
+            return i.reshape(1, n)
+
+    return None
