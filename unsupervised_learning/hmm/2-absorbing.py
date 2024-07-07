@@ -11,9 +11,9 @@ def absorbing(P):
         return False
 
     n = P.shape[0]
-    
+
     absorbing_states = np.diag(P) == 1
-    
+
     if not np.any(absorbing_states):
         return False
 
