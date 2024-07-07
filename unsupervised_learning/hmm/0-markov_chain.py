@@ -8,19 +8,28 @@ import numpy as np
 def markov_chain(P, s, t=1):
     """Determines the probability of a Markov chain being in a particular
     state after a specified number of iterations"""
-    if not isinstance(P, np.ndarray) or not isinstance(s, np.ndarray):
+    if type(P) is not np.ndarray:
         return None
-    if len(P.shape) != 2 or P.shape[0] != P.shape[1]:
+    if len(P.shape) != 2:
         return None
-    if P.shape[0] != s.shape[0]:
+    n, n_t = P.shape
+    if n != n_t:
         return None
-    if t < 1 or not isinstance(t, int):
+    if type(s) is not np.ndarray:
         return None
-    
-    n = P.shape[0]
-    
-    s_t = np.copy(s)
-    for _ in range(t):
-        s_t = np.dot(s_t, P)
-    
-    return s_t
+    if len(s.shape) != 2 or s.shape[0] != 1 or s.shape[1] != n:
+        return None
+    if type(t) != int or t < 1:
+        return None
+    sum_test = np.sum(P, axis=1)
+    for elem in sum_test:
+        if not np.isclose(elem, 1):
+            return None
+
+    sn_t = s
+    sn = np.zeros((1, n))
+    for i in range(t):
+        sn = np.matmul(sn_t, P)
+        sn_t = sn
+
+    return sn
