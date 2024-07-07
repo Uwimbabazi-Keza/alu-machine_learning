@@ -24,16 +24,16 @@ def forward(Observation, Emission, Transition, Initial):
         0] != N or Transition.shape[
             1] != N or Initial.shape[0] != N or Initial.shape[1] != 1:
         return None, None
-    
+
     F = np.zeros((N, T))
-    
+
     F[:, 0] = Initial[:, 0] * Emission[:, Observation[0]]
-    
+
     for t in range(1, T):
         for j in range(N):
             F[j, t] = np.sum(
                 F[:, t - 1] * Transition[:, j] * Emission[j, Observation[t]])
-    
+
     P = np.sum(F[:, -1])
-    
+
     return P, F
