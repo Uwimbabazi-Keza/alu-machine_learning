@@ -21,8 +21,7 @@ def viterbi(Observation, Emission, Transition, Initial):
         return None, None
     T = Observation.shape[0]
     N, M = Emission.shape
-    if (Transition.shape[0] != N or 
-        Transition.shape[1] != N or 
+    if (Transition.shape[0] != N or Transition.shape[1] != N or
         Initial.shape[0] != N or Initial.shape[1] != 1):
         return None, None
 
@@ -33,7 +32,7 @@ def viterbi(Observation, Emission, Transition, Initial):
 
     for t in range(1, T):
         for j in range(N):
-            probabilities = (V[:, t - 1] * 
+            probabilities = (V[:, t - 1] *
                              Transition[:, j] * Emission[j, Observation[t]])
             V[j, t] = np.max(probabilities)
             B[j, t] = np.argmax(probabilities)

@@ -18,8 +18,8 @@ def backward(Observation, Emission, Transition, Initial):
         return None, None
     T = Observation.shape[0]
     N, M = Emission.shape
-    if (Transition.shape[0] != N or Transition.shape[1] != N or
-        Initial.shape[0] != N or Initial.shape[1] != 1):
+    if (Transition.shape[0]) != N or (Transition.shape[1]) != N or (
+        Initial.shape[0]) != N or (Initial.shape[1] != 1):
         return None, None
 
     B = np.zeros((N, T))
@@ -29,7 +29,8 @@ def backward(Observation, Emission, Transition, Initial):
     for t in range(T-2, -1, -1):
         for i in range(N):
             B[i, t] = np.sum(
-                B[:, t + 1] * Transition[i, :] * Emission[:, Observation[t + 1]])
+                B[:, t + 1] * Transition[i, :] *
+                Emission[:, Observation[t + 1]])
 
     P = np.sum(Initial[:, 0] * Emission[:, Observation[0]] * B[:, 0])
 
