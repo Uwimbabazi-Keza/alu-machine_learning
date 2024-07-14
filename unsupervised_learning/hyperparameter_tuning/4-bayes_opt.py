@@ -25,20 +25,17 @@ class BayesianOptimization:
     def acquisition(self):
         """Calculates the next best sample
         location using Expected Improvement (EI)"""
-        mu_s, sigma_s = self.gp.predict(self.X_s)
 
+        mu, sigma = self.gp.predict(self.X_s)
         if self.minimize is True:
-            best = np.min(self.gp.Y)
-            imp = best - mu_s - self.xsi
+            Y_sample = np.min(self.gp.Y)
+            imp = Y_sample - mu - self.xsi
         else:
-            best = np.max(self.gp.Y)
-            imp = mu_s - best - self.xsi
-
-        with np.errstate(divide='ignore'):
-            z = imp / sigma_s
-            ei = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
+            Y_sample = np.max(self.gp.Y)
+            imp = mu - Y_sample - self.xsi
+        with np.errstate(divide='warn'):
+            Z = imp / sigma
+            ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             ei[sigma == 0.0] = 0.0
-
-        x = self.X_s[np.argmax(ei)]
-        
-        return x, ei
+        X_next = self.X_s[np.argmax(ei)]
+        return X_next, ei
