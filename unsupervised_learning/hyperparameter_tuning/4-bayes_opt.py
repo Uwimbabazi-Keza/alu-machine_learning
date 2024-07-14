@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""def acquisition(self): that calculates the next
-best sample location:"""
+"""def acquisition(self): that calculates
+the next best sample location"""
 
 import numpy as np
-from scipy.optimize import minimize
 from scipy.stats import norm
 
-
 GP = __import__('2-gp').GaussianProcess
-
 
 class BayesianOptimization:
     """performs Bayesian optimization
     on a noiseless 1D Gaussian process"""
+
     def __init__(self, f, X_init, Y_init, bounds,
                  ac_samples, l=1, sigma_f=1, xsi=0.01, minimize=True):
         """Class constructor for Bayesian Optimization"""
@@ -21,10 +19,9 @@ class BayesianOptimization:
         self.X_s = np.linspace(bounds[0], bounds[1], ac_samples).reshape(-1, 1)
         self.xsi = xsi
         self.minimize = minimize
-        self.bounds = bounds
 
     def acquisition(self):
-        """Calculates the next best sample 
+        """Calculates the next best sample
         location using Expected Improvement (EI)"""
         mu_s, sigma_s = self.gp.predict(self.X_s)
 
@@ -40,17 +37,33 @@ class BayesianOptimization:
             EI = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
 
         X_next = self.X_s[np.argmax(EI)]
-        
+
         return X_next, EI
 
-    def optimize(self):
+    def optimize(self, iterations=100):
         """Optimizes the acquisition function to
         obtain the next best sample point"""
-        def min_obj(X):
-            return -self.acquisition()[1][np.argmin(self.gp.Y)]
+        sampled_points = set()
 
-        res = minimize(min_obj, self.X_s[np.argmin(self.gp.Y)], bounds=self.bounds)
-        return res.x
+        for _ in range(iterations):
+            X_next, _ = self.acquisition()
+
+            if tuple(X_next) in sampled_points:
+                break
+
+            sampled_points.add(tuple(X_next))
+            Y_next = self.f(X_next)
+            self.update(X_next, Y_next)
+
+        if self.minimize:
+            optimal_idx = np.argmin(self.gp.Y)
+        else:
+            optimal_idx = np.argmax(self.gp.Y)
+
+        X_opt = self.gp.X[optimal_idx]
+        Y_opt = self.gp.Y[optimal_idx]
+
+        return X_opt, Y_opt
 
     def update(self, X_new, Y_new):
         """Updates the Gaussian Proces"""
