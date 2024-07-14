@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""def update(self, X_new, Y_new): that updates a 
+"""def update(self, X_new, Y_new): that updates a
 Gaussian Process"""
 
 import numpy as np
@@ -35,7 +35,7 @@ class GaussianProcess:
         cov_s = K_ss - K_s.T.dot(K_inv).dot(K_s)
 
         return mu_s, np.diag(cov_s)
-    
+
     def update(self, X_new, Y_new):
         """Updates the Gaussian Process with
         a new sample point"""
