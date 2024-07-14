@@ -21,6 +21,7 @@ class BayesianOptimization:
         self.X_s = np.linspace(bounds[0], bounds[1], ac_samples).reshape(-1, 1)
         self.xsi = xsi
         self.minimize = minimize
+        self.bounds = bounds
 
     def acquisition(self):
         """Calculates the next best sample 
