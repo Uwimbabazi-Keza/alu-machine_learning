@@ -21,10 +21,10 @@ class BayesianOptimization:
         self.xsi = xsi
         self.minimize = minimize
 
-    def acquisition(self, X):
+    def acquisition(self):
         """Computes the acquisition function value at points
         X using Upper Confidence Bound (UCB)"""
-        mu_s, sigma_s = self.gp.predict(X)
+        mu_s, sigma_s = self.gp.predict(self.X_s)
         if self.minimize is True:
             best = np.min(self.gp.Y)
             imp = best - mu_s - self.xsi
