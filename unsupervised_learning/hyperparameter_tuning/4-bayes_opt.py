@@ -23,19 +23,34 @@ class BayesianOptimization:
         self.minimize = minimize
 
     def acquisition(self):
-        """Calculates the next best sample
+        """Calculates the next best sample 
         location using Expected Improvement (EI)"""
+        mu_s, sigma_s = self.gp.predict(self.X_s)
 
-        mu, sigma = self.gp.predict(self.X_s)
-        if self.minimize is True:
-            Y_sample = np.min(self.gp.Y)
-            imp = Y_sample - mu - self.xsi
+        if self.minimize:
+            best = np.min(self.gp.Y)
+            imp = best - mu_s - self.xsi
         else:
-            Y_sample = np.max(self.gp.Y)
-            imp = mu - Y_sample - self.xsi
-        with np.errstate(divide='warn'):
-            Z = imp / sigma
-            ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
-            ei[sigma == 0.0] = 0.0
-        X_next = self.X_s[np.argmax(ei)]
-        return X_next, ei
+            best = np.max(self.gp.Y)
+            imp = mu_s - best - self.xsi
+
+        with np.errstate(divide='ignore'):
+            z = imp / sigma_s
+            EI = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
+
+        X_next = self.X_s[np.argmax(EI)]
+        
+        return X_next, EI
+
+    def optimize(self):
+        """Optimizes the acquisition function to
+        obtain the next best sample point"""
+        def min_obj(X):
+            return -self.acquisition()[1][np.argmin(self.gp.Y)]
+
+        res = minimize(min_obj, self.X_s[np.argmin(self.gp.Y)], bounds=self.bounds)
+        return res.x
+
+    def update(self, X_new, Y_new):
+        """Updates the Gaussian Proces"""
+        self.gp.update(X_new, Y_new)
