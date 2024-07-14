@@ -27,7 +27,7 @@ class BayesianOptimization:
         location using Expected Improvement (EI)"""
         mu_s, sigma_s = self.gp.predict(self.X_s)
 
-        if self.minimize:
+        if self.minimize is True:
             best = np.min(self.gp.Y)
             imp = best - mu_s - self.xsi
         else:
@@ -36,8 +36,8 @@ class BayesianOptimization:
 
         with np.errstate(divide='ignore'):
             z = imp / sigma_s
-            EI = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
+            ei = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
 
-        x = self.X_s[np.argmax(EI)]
+        x = self.X_s[np.argmax(ei)]
         
-        return x, EI
+        return x, ei
