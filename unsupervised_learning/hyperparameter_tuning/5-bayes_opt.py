@@ -24,7 +24,7 @@ class BayesianOptimization:
         self.minimize = minimize
 
     def acquisition(self):
-        """Calculates the next best sample 
+        """Calculates the next best sample
         location using Expected Improvement (EI)"""
         mu_s, sigma_s = self.gp.predict(self.X_s)
 
@@ -40,32 +40,32 @@ class BayesianOptimization:
             EI = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
 
         X_next = self.X_s[np.argmax(EI)]
-        
+
         return X_next, EI
 
     def optimize(self, iterations=100):
         """Optimizes the acquisition function to
         obtain the next best sample point"""
         sampled_points = set()
-        
+
         for _ in range(iterations):
             X_next, _ = self.acquisition()
-            
+
             if tuple(X_next) in sampled_points:
                 break
-            
+
             sampled_points.add(tuple(X_next))
             Y_next = self.f(X_next)
             self.update(X_next, Y_next)
-        
+
         if self.minimize:
             optimal_idx = np.argmin(self.gp.Y)
         else:
             optimal_idx = np.argmax(self.gp.Y)
-        
+
         X_opt = self.gp.X[optimal_idx]
         Y_opt = self.gp.Y[optimal_idx]
-        
+
         return X_opt, Y_opt
 
     def update(self, X_new, Y_new):
