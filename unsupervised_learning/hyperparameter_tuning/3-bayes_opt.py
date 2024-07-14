@@ -3,7 +3,6 @@
 on a noiseless 1D Gaussian process"""
 
 import numpy as np
-from scipy.optimize import minimize as scipy_minimize
 
 
 GP = __import__('2-gp').GaussianProcess
