@@ -25,7 +25,7 @@ class BayesianOptimization:
         """Computes the acquisition function value at points
         X using Upper Confidence Bound (UCB)"""
         mu_s, sigma_s = self.gp.predict(X)
-        if self.minimize:
+        if self.minimize is True:
             best = np.min(self.gp.Y)
             imp = best - mu_s - self.xsi
         else:
@@ -34,4 +34,6 @@ class BayesianOptimization:
         with np.errstate(divide='ignore'):
             z = imp / sigma_s
             ei = imp * norm.cdf(z) + sigma_s * norm.pdf(z)
-        return ei
+            ei[sigma == 0.0] = 0.0
+        x= self.X_s[np.argmax(ei)]
+        return x, ei
