@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Performs PCA on a dataset and returns the transformed dataset with the specified
-    number of dimensions."""
+"""Performs PCA on a dataset and returns the transformed
+dataset with the specified number of dimensions."""
+
 
 import numpy as np
 
 
 def pca(X, ndim):
-    """Performs PCA on a dataset and returns the transformed dataset with the specified
-    number of dimensions."""
-    X_centered = X - np.mean(X, axis=0)
+    """Perform PCA on the dataset X to reduce 
+    its dimensionality to ndim."""
+    cov_matrix = np.cov(X, rowvar=False)
 
-    covariance_matrix = np.cov(X_centered, rowvar=False)
-
-    eigenvalues, eigenvectors = np.linalg.eigh(covariance_matrix)
+    eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
 
     sorted_indices = np.argsort(eigenvalues)[::-1]
     sorted_eigenvectors = eigenvectors[:, sorted_indices]
 
     W = sorted_eigenvectors[:, :ndim]
 
-    T = np.dot(X_centered, W)
+    T = np.dot(X, W)
 
     return T
